@@ -20,5 +20,7 @@ resource "aws_route53_record" "www" {
   ttl     = 1
   #records = [aws_instance.web[count.index].private_ip]
 #   records = [var.instance_names[count.index] == "web" ? aws_instance.web[count.index].public_ip : aws_instance.web[count.index].private_ip]
-    records = [each.key == "web" ? each.value.public_ip : each.value.private_ip]
+    # records = [each.key == "web" ? each.value.public_ip : each.value.private_ip]
+    records = [startswith(each.key, "web") ? each.value.public_ip : each.value.pravite_ip] 
+      
 }
